@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>View 1</title>
+	</head>
+	<body>
+		<!--
+			Feel free to make changes to this HTML but do no change the option in select
+		-->
+
+		<h1>Shopping Cart</h1>
+
+
+		<form data-th-object="${cart}">
+
+			<table data-th-object="${cart}">
+				<tr>
+					<td>Item:</td>
+					<td>
+						<select name="item" data-th-field="*{item}">
+							<option value="apple">Apple</option>
+							<option value="orange">Orange</option>
+							<option value="bread">Bread</option>
+							<option value="cheese">Cheese</option>
+							<option value="chicken">Chicken</option>
+							<option value="mineral_water">Mineral Water</option>
+							<option value="instant_noodles">Instant Noodles</option>
+						</select>
+					</td>
+					<div data-th-object="${cart}">
+						<td data-th-if="${#fields.hasErrors('item')}">
+							<p data-th-errors="*{item}"></p>
+						</td>
+					</div>
+
+				</tr>
+				<tr>
+					<td>Quantity:</td>
+					<td>
+						<input type="number" name="quantity" size="4" placeholder="Quantity" data-th-field="*{quantity}">
+					</td>
+					<div data-th-object="${cart}">
+						<td data-th-if="${#fields.hasErrors('quantity')}">
+							<p data-th-errors="*{quantity}"></p>
+						</td>
+					</div>
+				</tr>
+			</table>
+	
+			<table border="1" style="margin-top: 2vh; margin-bottom: 2vh;">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<div data-th-each="cart : ${cartList}" data-th-object="${cart}">
+						<tr>
+							<td data-th-text="${cart.item}"></td>
+							<td data-th-field="${cart.quantity}"></td>
+						</tr>
+					</div>
+
+				</tbody>
+			</table>
+	
+			<div>
+				<button type="submit" formaction="/add" formmethod="POST">Add</button>
+				<button type="submit" formaction="/shippingaddress" formmethod="POST">Next</button>
+			</div>
+
+		</form>
+
+		
+	</body>
+</html>
