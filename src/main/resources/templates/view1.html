@@ -13,7 +13,7 @@
 		<h1>Shopping Cart</h1>
 
 
-		<form data-th-object="${cart}">
+		<form method="GET" action="/shippingaddress" data-th-object="${cart}">
 
 			<table data-th-object="${cart}">
 				<tr>
@@ -66,11 +66,15 @@
 
 				</tbody>
 			</table>
-	
-			<div>
-				<button type="submit" formaction="/add" formmethod="POST">Add</button>
-				<button type="submit" formaction="/shippingaddress" formmethod="POST">Next</button>
-			</div>
+
+			<span>
+				<a data-th-href="@{/add}" formaction="@{/add}" formmethod="POST"><button>Add</button></a>
+				<a formaction="@{/shippingaddress}"><button>Next</button></a>
+			</span>
+
+		</form>
+
+		<form>
 
 		</form>
 
