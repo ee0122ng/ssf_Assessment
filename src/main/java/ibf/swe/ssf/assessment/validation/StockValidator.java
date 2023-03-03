@@ -1,7 +1,5 @@
 package ibf.swe.ssf.assessment.validation;
 
-import java.util.List;
-
 import ibf.swe.ssf.assessment.Constants;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -12,10 +10,8 @@ public class StockValidator implements ConstraintValidator<Stock, String> {
     public boolean isValid(String item, ConstraintValidatorContext context) {
 
         if (null != item) {
-            
-            List<String> stock = Constants.STOCK;
 
-            if (!stock.contains(item)) {
+            if (!Constants.STOCK.contains(item)) {
                 return false;
             }
         }

@@ -6,12 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ibf.swe.ssf.assessment.model.Cart;
 import ibf.swe.ssf.assessment.model.Customer;
@@ -37,7 +35,8 @@ public class PurchaseOrderController {
 
         List<Cart> sessionCart = (List<Cart>) session.getAttribute("cartList");
         if (null == sessionCart) {
-            session.setAttribute("cartList", new LinkedList<Cart>());
+            sessionCart = new LinkedList<>();
+            session.setAttribute("cartList", sessionCart);
         }
         
         model.addAttribute("cart", new Cart());
@@ -49,9 +48,6 @@ public class PurchaseOrderController {
     @PostMapping(path={"/add"})
     public String addItem(@Valid Cart cart, BindingResult result ,Model model, HttpSession session) {
 
-        // cart.setItem("apple");
-        // cart.setQuantity(10);
-
         System.out.println(">> cart from home: " + cart.toString());
 
         if (result.hasErrors()) {
@@ -62,21 +58,14 @@ public class PurchaseOrderController {
         // add the cart to cart list
         cartSvc.addCart(cart);
         List<Cart> cartList = cartSvc.retrieveCartList();
-        // check cart repo
-        for (Cart ct : cartList) {
-            System.out.println(">>> cart repo : " + ct.toString());
-        }
         
         // update session cart
         List<Cart> sessionCart = (List<Cart>) session.getAttribute("cartList");
         sessionCart.add(cart);
-        System.out.println(">> session cart size: " + sessionCart.size());
 
         model.addAttribute("cartList", cartList);
-        // binding view2 to a customer object
-        model.addAttribute("customer", new Customer());
 
-        return "redirect:/";
+        return "view1";
     }
 
     @GetMapping(path={"/shippingaddress"})
