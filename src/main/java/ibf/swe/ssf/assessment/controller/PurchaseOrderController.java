@@ -77,7 +77,7 @@ public class PurchaseOrderController {
         return "view2";
     }
 
-    @PostMapping(path={"/shippingaddress"})
+    @PostMapping(path={"/checkout"})
     public String processShipping(@Valid Customer customer, BindingResult result, Model model, HttpSession session) {
 
         if (result.hasErrors()) {
@@ -95,23 +95,6 @@ public class PurchaseOrderController {
         return "redirect:/quotation";
 
     }
-
-    // @PostMapping(path={"/shippingaddress"})
-    // public String enterShippingDetails(@Valid Customer customer, BindingResult result, Model model, HttpSession session) {
-
-    //     // validate the cart
-    //     List<Cart> sessionCart = (List<Cart>) session.getAttribute("cartList");
-    //     if (null == sessionCart) {
-    //         return "view1";
-    //     }
-
-    //     // if customer details not valid, stay on the page
-    //     if (result.hasErrors()) {
-    //         return "view2";
-    //     }
-
-    //     return "view2";
-    // }
 
     @PostMapping(path={"/quotation"})
     public String getQuotation(Model model, HttpSession session) {
