@@ -68,7 +68,8 @@ public class PurchaseOrderController {
         return "view1";
     }
 
-    @GetMapping(path={"/shippingaddress"})
+    @GetMapping()
+    @RequestMapping(path={"/shippingaddress"})
     public String proceedToShipping(Model model, HttpSession session) {
 
         model.addAttribute("customer", new Customer());
